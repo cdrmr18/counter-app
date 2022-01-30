@@ -1,22 +1,16 @@
 
 import { useState } from 'react';
 
-const Counter = ({ startCount, step }) => {
+const Counter = ({ startCount, step = 1 }) => {
   const [count, setCount] = useState(startCount);
 
   const handleIncrease = () => {
-    let amount = step || 1
-    setCount(count + amount)
+    setCount(count + step)
   }
 
   const handleDecrease = () => {
-    let amount = step || 1
-
-    if (count === 0) {
-      return;
-    }
-
-    setCount(count - amount)
+    const newCount = count - step;
+    setCount(Math.max(0, newCount))
   }
   return (
     <div className="m-4">
