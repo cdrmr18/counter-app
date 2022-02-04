@@ -10,20 +10,21 @@ const App = () => {
   ]);
 
   const handleAddCounter = () => {
-
+    setCounters([{id: new Date().getTime(), startCount: 0}, ...counters]);
   }
 
-  const handleRemoveCounter = () => {
-
+  const handleRemoveCounter = (id) => {
+    const newCounter = counters.filter((counter) => counter.id !== id)
+    setCounters(newCounter)
   }
+
   return (
     <div className="container mt-5 text-center">
       <button onClick={handleAddCounter}>Add Counter</button>
       {counters.map(({ id, ...props }) => {
         return (
           <div key={id}>
-            <Counter {...props} />
-            <button onClick={handleRemoveCounter}> Remove</button>
+            <Counter id={id} {...props} onDelete={handleRemoveCounter} />
           </div>
         );
       })}
